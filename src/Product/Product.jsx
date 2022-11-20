@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export function Product({ product, increaseQuantity, decreaseQuantity }) {
+export const Product = memo(({ product, increaseQuantity, decreaseQuantity }) => {
     return (
         <li className="product">
             <div className="product-preview">
@@ -23,4 +23,4 @@ export function Product({ product, increaseQuantity, decreaseQuantity }) {
             </div>
         </li>
     );
-}
+})
