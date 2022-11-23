@@ -1,8 +1,9 @@
 import React from "react";
 import { useStore } from 'react-redux';
+import { useAppStore } from "../redux/hooks";
 
 export function Header() {
-  const store = useStore();
+  const store = useAppStore();
 
   const onTitleClick = () => {
     console.log('Вы кликнули на заголовок', store.getState())
