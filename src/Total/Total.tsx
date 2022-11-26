@@ -32,6 +32,11 @@ export function Total() {
                 <td className="label">Total :</td>
                 <td className="value">$ {total.total}</td>
             </tr>
+            <tr>
+                <td colSpan={2} className="button-cell">
+                    <button className="button">Buy</button>
+                </td>
+            </tr>
         </tbody>
     </table>;
 }
