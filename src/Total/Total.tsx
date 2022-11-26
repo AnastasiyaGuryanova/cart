@@ -34,7 +34,7 @@ export function Total() {
             </tr>
             <tr>
                 <td colSpan={2} className="button-cell">
-                    <button className="button">Buy</button>
+                    <button className="main-button">Buy</button>
                 </td>
             </tr>
         </tbody>

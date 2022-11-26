@@ -207,20 +207,20 @@ body {
 }
 
 /* CSS */
-.bill .button {
+.main-button {
   appearance: button;
   background-color: #8a5428;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: din-round,sans-serif;
+  font-family: din-round, sans-serif;
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: .8px;
+  letter-spacing: 0.8px;
   line-height: 20px;
   margin: 0;
   outline: none;
@@ -230,7 +230,7 @@ body {
   text-transform: uppercase;
   touch-action: manipulation;
   transform: translateZ(0);
-  transition: filter .2s;
+  transition: filter 0.2s;
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
@@ -238,7 +238,7 @@ body {
   width: 100%;
 }
 
-.bill .button:after {
+.main-button:after {
   background-clip: padding-box;
   background-color: #ac6932;
   border: solid transparent;
@@ -253,16 +253,44 @@ body {
   z-index: -1;
 }
 
-.bill .button:main,
-.bill .button:focus {
+.main-button:main,
+.main-button:focus {
   user-select: auto;
 }
 
-.bill .button:hover:not(:disabled) {
+.main-button:hover:not(:disabled) {
   filter: brightness(1.1);
   -webkit-filter: brightness(1.1);
 }
 
-.bill .button:disabled {
+.main-button:disabled {
   cursor: auto;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(138, 84, 40, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  min-width: 300px;
+  min-height: 300px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 16px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal-content h2 {
+  font-size: 36px;
 }
