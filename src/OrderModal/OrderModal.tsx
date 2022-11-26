@@ -1,5 +1,8 @@
+import { useAppSelector } from "../redux/hooks";
+
 export const OrderModal = () => {
-    if (!0) {
+    const show = useAppSelector(state => state.order.confirmed);
+    if (!show) {
         return null;
     }
     return (
