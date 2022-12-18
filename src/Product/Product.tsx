@@ -1,14 +1,15 @@
 import React, { memo } from "react";
-import { useAppDispatch } from "../redux/hooks";
+import { useDispatch } from "react-redux";
 import { decreaseQuantity, increaseQuantity } from "../redux/productsReducer";
 import { IProduct } from "../types/IProduct";
 
 interface IProductProps {
     product: IProduct;
+    quantity: number;
 }
 
-export const Product = memo(({ product }: IProductProps) => {
-    const dispatch = useAppDispatch();
+export const Product = memo(({ product, quantity }: IProductProps) => {
+    const dispatch = useDispatch();
 
     return (
         <li className="product">
@@ -25,7 +26,7 @@ export const Product = memo(({ product }: IProductProps) => {
                     <div className="product-price">$ {product.price}</div>
                 </div>
             </div>
-            <div className="product-quantity">x{product.quantity}</div>
+            <div className="product-quantity">x{quantity}</div>
             <div className="product-interactions">
                 <div
                     className="button plus"

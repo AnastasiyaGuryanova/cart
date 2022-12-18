@@ -1,18 +1,17 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { combineReducers } from "redux";
 import { logActionMiddleware } from "./logActionMiddleware";
-import { orderSlice } from "./orderReducer";
-import { productsSlice } from "./productsReducer";
-import thunkMiddleware from 'redux-thunk';
-import { persistReducer, persistStore } from "redux-persist";
+import { orderApiSlice } from "./orderReducer";
+import { productsApiSlice, productsSlice } from "./productsReducer";
+import { persistReducer, persistStore, FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { composeWithDevTools } from '@redux-devtools/extension'
 import { configureStore } from '@reduxjs/toolkit'
 
 const rootReducer = persistReducer(
     { key: 'redux', storage: storage, throttle: 100000 },
     combineReducers({
         products: productsSlice.reducer,
-        order: orderSlice.reducer
+        [orderApiSlice.reducerPath]: orderApiSlice.reducer,
+        [productsApiSlice.reducerPath]: productsApiSlice.reducer
     })
 );
 
@@ -20,7 +19,17 @@ export const store = configureStore(
     {
         reducer: rootReducer,
         devTools: true,
-        middleware: [thunkMiddleware, logActionMiddleware]
+        middleware(getDefaultMiddleware) {
+            return getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE]
+                }
+            }).concat([
+                orderApiSlice.middleware,
+                productsApiSlice.middleware,
+                logActionMiddleware,
+            ])
+        }
     }
 )
 
