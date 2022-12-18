@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { decreaseQuantityActionCreator, increaseQuantityActionCreator } from "../redux/actions";
 import { useAppDispatch } from "../redux/hooks";
+import { decreaseQuantity, increaseQuantity } from "../redux/productsReducer";
 import { IProduct } from "../types/IProduct";
 
 interface IProductProps {
@@ -29,13 +29,13 @@ export const Product = memo(({ product }: IProductProps) => {
             <div className="product-interactions">
                 <div
                     className="button plus"
-                    onClick={() => dispatch(increaseQuantityActionCreator(product.id))}
+                    onClick={() => dispatch(increaseQuantity(product.id))}
                 >
                     +
                 </div>
                 <div
                     className="button minus"
-                    onClick={() => dispatch(decreaseQuantityActionCreator(product.id))}
+                    onClick={() => dispatch(decreaseQuantity(product.id))}
                 >
                     -
                 </div>

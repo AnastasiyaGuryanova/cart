@@ -1,7 +1,5 @@
-import React from "react";
-import { useSelector } from 'react-redux';
-import { createOrderAction } from "../redux/actions";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { createOrder } from "../redux/orderReducer";
 import { round } from "../utils";
 
 export function Total() {
@@ -38,7 +36,7 @@ export function Total() {
             </tr>
             <tr>
                 <td colSpan={2} className="button-cell">
-                    <button className="main-button" disabled={disableBuyButton} onClick={() => dispatch(createOrderAction())}>Buy</button>
+                    <button className="main-button" disabled={disableBuyButton} onClick={() => dispatch(createOrder())}>Buy</button>
                 </td>
             </tr>
         </tbody>
