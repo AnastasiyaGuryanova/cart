@@ -1,37 +1,45 @@
 import { combineReducers } from "redux";
-import { logActionMiddleware } from "./logActionMiddleware";
-import { orderApiSlice } from "./orderReducer";
-import { productsApiSlice, productsSlice } from "./productsReducer";
-import { persistReducer, persistStore, FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE } from "redux-persist";
+import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { configureStore } from '@reduxjs/toolkit'
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REGISTER,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+} from "redux-persist";
+
+import { logActionMiddleware } from "./logActionMiddleware";
+import orderReducer, { orderMiddleware, orderReducerPath } from "./order";
+import productsReducer, {
+  productsMiddleware,
+  productsReducerPath,
+  productsSliceReducer,
+} from "./products";
 
 const rootReducer = persistReducer(
-    { key: 'redux', storage: storage, throttle: 100000 },
-    combineReducers({
-        products: productsSlice.reducer,
-        [orderApiSlice.reducerPath]: orderApiSlice.reducer,
-        [productsApiSlice.reducerPath]: productsApiSlice.reducer
-    })
+  { key: "redux", storage: storage, throttle: 100000 },
+  combineReducers({
+    products: productsSliceReducer,
+    [orderReducerPath]: orderReducer,
+    [productsReducerPath]: productsReducer,
+  })
 );
 
-export const store = configureStore(
-    {
-        reducer: rootReducer,
-        devTools: true,
-        middleware(getDefaultMiddleware) {
-            return getDefaultMiddleware({
-                serializableCheck: {
-                    ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE]
-                }
-            }).concat([
-                orderApiSlice.middleware,
-                productsApiSlice.middleware,
-                logActionMiddleware,
-            ])
-        }
-    }
-)
+export const store = configureStore({
+  reducer: rootReducer,
+  devTools: true,
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE],
+      },
+    }).concat([orderMiddleware, productsMiddleware, logActionMiddleware]);
+  },
+});
 
 export const persistor = persistStore(store);
 
